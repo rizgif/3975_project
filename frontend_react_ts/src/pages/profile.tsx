@@ -1,37 +1,53 @@
-// src/components/Register.tsx
+// src/pages/Profile.tsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-
-
-const Register: React.FC = () => {
+const Profile: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    // Fetch user data when component mounts
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('/user'); // Assuming the endpoint is '/user'
+        const userData = response.data;
+        setName(userData.name);
+        setEmail(userData.email);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/register', {
+      const response = await axios.post('/user/update', {
         name,
         email,
         password,
         password_confirmation: passwordConfirmation
       });
-      console.log(response.data); // Handle successful registration
+      setSuccessMessage('Profile updated successfully');
     } catch (error) {
-      setError('Registration failed');
+      setError('Failed to update profile');
     }
   };
 
   return (
     <div>
-      <h2>Register</h2>
+      <h2>Profile</h2>
       {error && <p>{error}</p>}
+      {successMessage && <p>{successMessage}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
@@ -42,17 +58,17 @@ const Register: React.FC = () => {
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
-          <label>Password:</label>
+          <label>New Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div>
-          <label>Password Confirmation:</label>
+          <label>Confirm Password:</label>
           <input type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit">Update Profile</button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default Profile;
