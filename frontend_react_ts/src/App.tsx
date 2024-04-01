@@ -7,6 +7,7 @@ import Footer from './components/layout/footer';
 import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
+import Profile from './pages/profile';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
 
             {/* Add more routes for other pages */}
           </Routes>
