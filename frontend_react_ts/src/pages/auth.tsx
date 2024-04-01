@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../App.css'; // Adjust the import path
 
 const AuthPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="form-container">
       <div className="card">
         <h2>Login</h2>
         {error && <p>{error}</p>}
@@ -35,7 +36,7 @@ const AuthPage: React.FC = () => {
             <label>Password:</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <button type="submit">Login</button>
+          <button className="button" type="submit">Login</button>
         </form>
         <p>
           Don't have an account? <Link to="/register">Register here</Link>.

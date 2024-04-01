@@ -1,8 +1,8 @@
 /* Button styles */
 .button {
-  background-color: #4caf50;
+  background-color: #7f00ff;
   color: white;
-  padding: 15px 32px;
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -14,7 +14,7 @@
 }
 
 .button:hover {
-  background-color: #45a049;
+  background-color: #333;
 }
 
 /* Header styles */
@@ -79,6 +79,34 @@ nav ul li a:hover {
   margin: auto; /* Center the card horizontally */
   margin-top: 50px; /* Add some space from the top */
 }
+
+/* Form styles */
+.form-container {
+  max-width: 400px; /* Adjust the maximum width of the form container */
+  margin: 0 auto; /* Center the form horizontally */
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adjust the vertical spacing between form elements */
+}
+
+.form-container label {
+  margin-bottom: 5px; /* Adjust the bottom margin for labels */
+}
+
+.form-container input {
+  padding: 10px; /* Adjust the padding for input fields */
+}
+
+.form-container button {
+  padding: 12px 20px; /* Adjust the padding for the button */
+  margin-top: 10px; /* Adjust the top margin for the button */
+}
+
+
+
 
 /* Footer styles */
 footer {

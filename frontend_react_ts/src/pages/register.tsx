@@ -22,7 +22,7 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="form-container">
       <div className="card">
         <h2>Register</h2>
         {error && <p>{error}</p>}
@@ -39,9 +39,9 @@ const Register: React.FC = () => {
             <label>Password:</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <button type="submit">Register</button>
+          <button className="button" type="submit">Register</button>
         </form>
-     
+        <Link to="/">Back</Link> {/* Link back to the home page */}
       </div>
     </div>
   );

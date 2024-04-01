@@ -7,6 +7,7 @@ import Profile from './pages/profile';
 import AuthPage from './pages/auth';
 import Register from './pages/register';
 
+
 const App: React.FC = () => {
   const isLoggedIn = !!localStorage.getItem('token');
 
@@ -20,6 +21,7 @@ const App: React.FC = () => {
             <Route path="/login" element={<AuthPage />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" />} /> {/* Add the conditional rendering */}
+           
           </Routes>
         </main>
         <Footer />
