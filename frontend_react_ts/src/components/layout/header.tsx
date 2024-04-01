@@ -13,7 +13,7 @@ const Header: React.FC = () => {
 
   return (
     <header>
-      <h1>Hiroo!</h1>
+      <h1>Hiroo 🔎</h1>
       {/* Navigation links */}
       <nav>
         <ul>
