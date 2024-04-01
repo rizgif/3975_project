@@ -69,6 +69,17 @@ nav ul li a:hover {
   outline: none;
 }
 
+/* Card styles */
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  margin: auto; /* Center the card horizontally */
+  margin-top: 50px; /* Add some space from the top */
+}
+
 /* Footer styles */
 footer {
   background-color: #7f00ff; /* Adjusted color */
