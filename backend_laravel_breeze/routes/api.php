@@ -3,9 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ProfileController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
 });
 
 // Event endpoints
@@ -34,3 +35,7 @@ Route::get('/events/{eventId}/attendees', [EventController::class, 'getAttendees
 
 // Remove an attendee from an event
 Route::delete('/events/{eventId}/attendees/{userId}', [EventController::class, 'removeAttendee']);
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
