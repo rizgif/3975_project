@@ -7,124 +7,124 @@ use App\Models\Event;
 
 class EventController extends Controller
 {
-    //create an event
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'host_id' => 'required|integer|exists:users,id',
-            'date' => 'required|date',
-            'location' => 'required|string',
-            'description' => 'nullable|string',
-            'image' => 'nullable|string',
-            'is_approved' => 'required|boolean',
-        ]);
+  //create an event
+  public function store(Request $request)
+  {
+    $validatedData = $request->validate([
+      'title' => 'required|string',
+      'host_id' => 'required|integer|exists:users,id',
+      'date' => 'required|date',
+      'location' => 'required|string',
+      'description' => 'nullable|string',
+      'image' => 'nullable|string',
+      'is_approved' => 'required|boolean',
+    ]);
 
-        $event = Event::create($validatedData);
+    $event = Event::create($validatedData);
 
-        return response()->json($event, 201);
+    return response()->json($event, 201);
+  }
+
+  //get all events
+  public function index()
+  {
+    $approvedEvents = Event::where('is_approved', true)->get();
+    return response()->json($approvedEvents);
+  }
+
+  //get a single event
+  public function show($id)
+  {
+    $event = Event::find($id);
+
+    if (!$event) {
+      return response()->json(['message' => 'Event not found'], 404);
     }
 
-    //get all events
-    public function index()
-    {   
-        $events = Event::all();
-        return response()->json($events);
+    return response()->json($event);
+  }
+
+  // update an event
+  public function update(Request $request, $id)
+  {
+    $event = Event::find($id);
+
+    if (!$event) {
+      return response()->json(['message' => 'Event not found'], 404);
     }
 
-    //get a single event
-    public function show($id)
-    {
-        $event = Event::find($id);
+    $validatedData = $request->validate([
+      'title' => 'string',
+      'date' => 'date',
+      'location' => 'string',
+      'description' => 'nullable|string',
+      'image' => 'nullable|string',
+      'is_approved' => 'boolean',
+    ]);
 
-        if (!$event) {
-            return response()->json(['message' => 'Event not found'], 404);
-        }
+    $event->update($validatedData);
 
-        return response()->json($event);
+    return response()->json($event);
+  }
+
+  // delete an event
+  public function destroy($id)
+  {
+    $event = Event::find($id);
+
+    if (!$event) {
+      return response()->json(['message' => 'Event not found'], 404);
     }
 
-    // update an event
-    public function update(Request $request, $id)
-    {
-        $event = Event::find($id);
+    $event->delete();
 
-        if (!$event) {
-            return response()->json(['message' => 'Event not found'], 404);
-        }
+    return response()->json(['message' => 'Event deleted']);
+  }
 
-        $validatedData = $request->validate([
-            'title' => 'string',
-            'date' => 'date',
-            'location' => 'string',
-            'description' => 'nullable|string',
-            'image' => 'nullable|string',
-            'is_approved' => 'boolean',
-        ]);
+  public function getAttendees($eventId)
+  {
+    $event = Event::with('attendees')->find($eventId);
 
-        $event->update($validatedData);
-
-        return response()->json($event);
+    if (!$event) {
+      return response()->json(['message' => 'Event not found'], 404);
     }
 
-    // delete an event
-    public function destroy($id)
-    {
-        $event = Event::find($id);
+    return response()->json($event->attendees);
+  }
 
-        if (!$event) {
-            return response()->json(['message' => 'Event not found'], 404);
-        }
+  // add an attendee to an event
+  public function addAttendee(Request $request, $eventId)
+  {
+    $event = Event::find($eventId);
 
-        $event->delete();
-
-        return response()->json(['message' => 'Event deleted']);
+    if (!$event) {
+      return response()->json(['message' => 'Event not found'], 404);
     }
 
-    public function getAttendees($eventId)
-    {
-        $event = Event::with('attendees')->find($eventId);
+    $userId = $request->validate(['user_id' => 'required|integer|exists:users,id'])['user_id'];
 
-        if (!$event) {
-            return response()->json(['message' => 'Event not found'], 404);
-        }
-
-        return response()->json($event->attendees);
+    // Prevent duplicate attendee entries
+    if (!$event->attendees()->find($userId)) {
+      $event->attendees()->attach($userId);
     }
 
-    // add an attendee to an event
-    public function addAttendee(Request $request, $eventId)
-    {
-        $event = Event::find($eventId);
+    return response()->json(['message' => 'Attendee added']);
+  }
 
-        if (!$event) {
-            return response()->json(['message' => 'Event not found'], 404);
-        }
+  // remove an attendee from an event
+  public function removeAttendee($eventId, $userId)
+  {
+    $event = Event::find($eventId);
 
-        $userId = $request->validate(['user_id' => 'required|integer|exists:users,id'])['user_id'];
-
-        // Prevent duplicate attendee entries
-        if (!$event->attendees()->find($userId)) {
-            $event->attendees()->attach($userId);
-        }
-
-        return response()->json(['message' => 'Attendee added']);
+    if (!$event) {
+      return response()->json(['message' => 'Event not found'], 404);
     }
 
-    // remove an attendee from an event
-    public function removeAttendee($eventId, $userId)
-    {
-        $event = Event::find($eventId);
-
-        if (!$event) {
-            return response()->json(['message' => 'Event not found'], 404);
-        }
-
-        if ($event->attendees()->find($userId)) {
-            $event->attendees()->detach($userId);
-            return response()->json(['message' => 'Attendee removed']);
-        }
-
-        return response()->json(['message' => 'Attendee not found in this event'], 404);
+    if ($event->attendees()->find($userId)) {
+      $event->attendees()->detach($userId);
+      return response()->json(['message' => 'Attendee removed']);
     }
+
+    return response()->json(['message' => 'Attendee not found in this event'], 404);
+  }
 }
