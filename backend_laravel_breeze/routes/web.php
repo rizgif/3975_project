@@ -19,6 +19,9 @@ Route::middleware(['auth', VerifyApproved::class])->group(function () {
         Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
         Route::post('/admin/users/{user}/approve', [AdminController::class, 'approve'])->name('admin.users.approve');
         Route::delete('/admin/users/{user}/reject', [AdminController::class, 'reject'])->name('admin.users.reject');
+        Route::get('/admin/events', [AdminController::class, 'events'])->name('admin.events');
+        Route::post('/admin/events/{event}/approve', [AdminController::class, 'approveEvent'])->name('admin.events.approve');
+
     });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
