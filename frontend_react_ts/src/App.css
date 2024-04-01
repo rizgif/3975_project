@@ -19,12 +19,12 @@
 
 /* Header styles */
 header {
-  background-color: #7F00FF	;
+  background-color: #7f00ff; /* Adjusted color */
   color: #fff;
   padding: 20px;
   text-align: center;
-  display: flex; /* Add flex display to align items horizontally */
-  justify-content: space-between; /* Align items to the start and end */
+  display: flex;
+  justify-content: space-between;
 }
 
 /* H1 styles */
@@ -35,7 +35,7 @@ header h1 {
 
 /* Navigation links styles */
 nav ul {
-  list-style-type: none; /* Remove bullet points */
+  list-style-type: none;
   margin: 0;
   padding: 0;
 }
@@ -52,7 +52,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  text-decoration: underline; /* Add underline on hover */
+  text-decoration: underline;
 }
 
 /* Settings dropdown styles */
@@ -66,12 +66,12 @@ nav ul li a:hover {
 }
 
 .settings-dropdown select:focus {
-  outline: none; /* Remove focus outline */
+  outline: none;
 }
 
 /* Footer styles */
 footer {
-  background-color:#7F00FF	;
+  background-color: #7f00ff; /* Adjusted color */
   color: #fff;
   padding: 20px;
   text-align: center;

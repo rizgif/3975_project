@@ -1,20 +1,22 @@
-// src/components/Login.tsx
+// src/pages/auth.tsx
 
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
-
-const Login: React.FC = () => {
+const AuthPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await axios.post('/login', { email, password });
-      console.log(response.data); // Handle successful login
+      const { token } = response.data;
+      localStorage.setItem('token', token);
+      navigate('/'); // Redirect to the home page upon successful login
     } catch (error) {
       setError('Invalid email or password');
     }
@@ -35,8 +37,11 @@ const Login: React.FC = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>
+        Don't have an account? <Link to="/register">Register here</Link>.
+      </p>
     </div>
   );
 };
 
-export default Login;
+export default AuthPage;
