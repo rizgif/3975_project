@@ -38,6 +38,10 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('admin.users')">
+                          {{ __('Approve Users') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
