@@ -1,7 +1,8 @@
-// src/pages/Home.tsx
+// Import the api instance
+import api from '../services/api';
 
+// Example usage in a React component
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 interface Event {
   id: number;
@@ -17,7 +18,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get<Event[]>('/events');
+        const response = await api.get<Event[]>('/events');
         setEvents(response.data);
         setLoading(false);
       } catch (error) {
