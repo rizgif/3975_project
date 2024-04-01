@@ -6,47 +6,46 @@ import axios from 'axios';
 interface Event {
   id: number;
   title: string;
-  host_id: number;
-  date: string;
-  location: string;
-  description: string;
-  image: string;
-  is_approved:boolean;
+  // Define other event properties here
 }
 
 const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    // Fetch events from backend when component mounts
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('/events'); // Assuming the endpoint is '/events'
-        setEvents(response.data); // Assuming the response data is an array of events
+        const response = await axios.get<Event[]>('/events');
+        setEvents(response.data);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching events:', error);
+        setError('Error fetching events');
+        setLoading(false);
       }
     };
 
     fetchEvents();
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div>
-      <h2>Welcome to Event Manager</h2>
-      <p>Manage your events with ease.</p>
-      <h3>Upcoming Events</h3>
-      <div>
+      <h2>Events</h2>
+      <ul>
         {events.map(event => (
-          <div key={event.id}>
-            <h4>{event.title}</h4>
-            <p>Date: {event.date}</p>
-            <p>Location: {event.location}</p>
-            <p>Description: {event.description}</p>
-            <img src={event.image} alt={event.title} style={{ maxWidth: '100%', height: 'auto' }} />
-          </div>
+          <li key={event.id}>{event.title}</li>
+          // Render other event properties as needed
         ))}
-      </div>
+      </ul>
     </div>
   );
 };
