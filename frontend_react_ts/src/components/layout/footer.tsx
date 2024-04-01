@@ -1,6 +1,8 @@
 // src/components/Footer.tsx
 
 import React from 'react';
+import '../../App.css'; // Adjust the import path
+
 
 const Footer: React.FC = () => {
   return (
