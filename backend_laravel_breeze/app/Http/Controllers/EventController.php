@@ -81,6 +81,17 @@ class EventController extends Controller
         return response()->json(['message' => 'Event deleted']);
     }
 
+    public function getAttendees($eventId)
+    {
+        $event = Event::with('attendees')->find($eventId);
+
+        if (!$event) {
+            return response()->json(['message' => 'Event not found'], 404);
+        }
+
+        return response()->json($event->attendees);
+    }
+
     // add an attendee to an event
     public function addAttendee(Request $request, $eventId)
     {

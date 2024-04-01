@@ -12,10 +12,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Create an event
 Route::post('/events', [EventController::class, 'store']);
 
-// Get all events
+// Get all events -> works
 Route::get('/events', [EventController::class, 'index']);
 
-// Get a single event
+// Get a single event -> works
 Route::get('/events/{id}', [EventController::class, 'show']);
 
 // Update an event
@@ -29,7 +29,7 @@ Route::delete('/events/{id}', [EventController::class, 'destroy']);
 // Add an attendee to an event
 Route::post('/events/{eventId}/attendees', [EventController::class, 'addAttendee']);
 
-// Get all attendees for an event
+// Get all attendees for an event -> works
 Route::get('/events/{eventId}/attendees', [EventController::class, 'getAttendees']);
 
 // Remove an attendee from an event
