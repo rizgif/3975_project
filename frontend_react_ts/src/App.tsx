@@ -20,7 +20,7 @@ const App: React.FC = () => {
             <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
             <Route path="/login" element={<AuthPage />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" />} /> {/* Add the conditional rendering */}
+            <Route path="/profile" element={<Profile />}/> {/* Add the conditional rendering */}
            
           </Routes>
         </main>

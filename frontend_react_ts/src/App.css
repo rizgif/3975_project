@@ -74,7 +74,7 @@ nav ul li a:hover {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 70px;
   width: 300px;
   margin: auto; /* Center the card horizontally */
   margin-top: 50px; /* Add some space from the top */
@@ -82,8 +82,10 @@ nav ul li a:hover {
 
 /* Form styles */
 .form-container {
-  max-width: 400px; /* Adjust the maximum width of the form container */
-  margin: 0 auto; /* Center the form horizontally */
+  display: flex;
+  justify-content: center;
+  margin-top: 30px; /* Adjust as necessary */
+  
 }
 
 .form-container form {
@@ -98,6 +100,8 @@ nav ul li a:hover {
 
 .form-container input {
   padding: 10px; /* Adjust the padding for input fields */
+
+
 }
 
 .form-container button {
@@ -105,6 +109,46 @@ nav ul li a:hover {
   margin-top: 10px; /* Adjust the top margin for the button */
 }
 
+/* Style each form group */
+.form-group {
+  margin-bottom: 20px; /* Add space between each form group */
+}
+
+/* Style the label to display as a block, which will make it sit on top of the input */
+label {
+  display: block;
+  margin-bottom: 5px; /* Add some space between the label and input */
+}
+
+/* Style the label to display as a block, which will make it sit on top of the input */
+label {
+  display: block;
+  margin-bottom: 5px; /* Add some space between the label and input */
+}
+
+
+
+/* Style inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%; /* Make inputs fill their container */
+  padding: 10px;
+  margin-bottom: 10px; /* Add some space below each input */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style the error and success messages */
+.error-message,
+.success-message {
+  color: #d8000c; /* Red color for errors */
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: #4BB543; /* Green color for success */
+}
 
 
 
