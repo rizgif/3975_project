@@ -6,6 +6,8 @@ import Home from './pages/home';
 import Profile from './pages/profile';
 import AuthPage from './pages/auth';
 import Register from './pages/register';
+import EventDetails from './pages/event_details'; // Import the EventDetails component
+
 
 
 const App: React.FC = () => {
@@ -20,8 +22,8 @@ const App: React.FC = () => {
             <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
             <Route path="/login" element={<AuthPage />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" />} /> {/* Add the conditional rendering */}
-           
+            <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" />} />
+            <Route path="/events/:eventId" element={<EventDetails />} /> {/* Route for the EventDetails page */}
           </Routes>
         </main>
         <Footer />
