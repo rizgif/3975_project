@@ -7,7 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SessionAuthenticateController extends Controller
+class AuthenticatedSessionController extends Controller
 {
     /**
      * Handle an incoming authentication request.
@@ -24,7 +24,6 @@ class SessionAuthenticateController extends Controller
      */
     public function destroy(Request $request)
     {
-
         $request->user()->tokens()->delete();
 
         return response()->json(['message' => 'Logged out successfully'], 200);

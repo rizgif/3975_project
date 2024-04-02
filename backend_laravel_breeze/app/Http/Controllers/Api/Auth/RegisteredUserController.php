@@ -9,7 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-class UserRegisterController extends Controller
+class RegisteredUserController extends Controller
 {
     public function store(Request $request)
     {
