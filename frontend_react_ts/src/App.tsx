@@ -22,7 +22,7 @@ const App: React.FC = () => {
             <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
             <Route path="/login" element={<AuthPage />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" />} />
+            <Route path="/profile" element={<Profile />}/>
             <Route path="/events/:eventId" element={<EventDetails />} /> {/* Route for the EventDetails page */}
           </Routes>
         </main>

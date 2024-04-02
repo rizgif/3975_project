@@ -1,8 +1,5 @@
-// src/pages/Profile.tsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 
 const Profile: React.FC = () => {
   const [name, setName] = useState('');
@@ -44,29 +41,31 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Profile</h2>
-      {error && <p>{error}</p>}
-      {successMessage && <p>{successMessage}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div>
-          <label>New Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
-        </div>
-        <button type="submit">Update Profile</button>
-      </form>
+    <div className="form-container">
+      <div className="card">
+        <h2>Profile</h2>
+        {error && <p>{error}</p>}
+        {successMessage && <p>{successMessage}</p>}
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Name:</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div>
+            <label>Email:</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <label>New Password:</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <div>
+            <label>Confirm Password:</label>
+            <input type="password" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
+          </div>
+          <button className="button" type="submit">Update Profile</button>
+        </form>
+      </div>
     </div>
   );
 };
