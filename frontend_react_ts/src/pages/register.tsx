@@ -6,18 +6,31 @@ const Register: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState(''); // Add this line
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/register', { name, email, password });
+      const url = 'http://localhost:8000/api/register';
+      const response = await axios.post(url, { 
+        name, 
+        email, 
+        password,
+        password_confirmation: passwordConfirmation, // Include this in your POST data
+      });
       const { token } = response.data;
+      
       localStorage.setItem('token', token);
+      
       navigate('/'); // Redirect to the home page upon successful registration
     } catch (error) {
-      setError('Registration failed. Please try again.');
+      if (axios.isAxiosError(error) && error.response) {
+        setError(`Registration failed: ${error.response.data.message}`);
+      } else {
+        setError('Registration failed. Please try again.');
+      }
     }
   };
 
@@ -25,7 +38,7 @@ const Register: React.FC = () => {
     <div className="form-container">
       <div className="card">
         <h2>Register</h2>
-        {error && <p>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div>
             <label>Name:</label>
@@ -39,9 +52,17 @@ const Register: React.FC = () => {
             <label>Password:</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
+          <div> {/* Add this block */}
+            <label>Password Confirmation:</label>
+            <input 
+              type="password" 
+              value={passwordConfirmation} 
+              onChange={(e) => setPasswordConfirmation(e.target.value)} 
+            />
+          </div>
           <button className="button" type="submit">Register</button>
         </form>
-        <Link to="/">Back</Link> {/* Link back to the home page */}
+        <p>Don't have an account? <Link to="/register">Register here</Link>.</p>
       </div>
     </div>
   );

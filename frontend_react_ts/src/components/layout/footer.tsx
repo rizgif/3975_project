@@ -7,7 +7,7 @@ import '../../App.css'; // Adjust the import path
 const Footer: React.FC = () => {
   return (
     <footer>
-      <p>&copy; 2024 Hiroo Event Manager. All rights reserved.</p>
+      <p>&copy; 2024 EventureMap. All rights reserved.</p>
       {/* Add additional footer content here */}
     </footer>
   );

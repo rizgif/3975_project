@@ -13,7 +13,13 @@ const AuthPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/login', { email, password });
+      const url = 'http://localhost:8000/api/login';
+      const response = await axios.post(url, { 
+      
+        email, 
+        password,
+  
+      });
       const { token } = response.data;
       localStorage.setItem('token', token);
       navigate('/'); // Redirect to the home page upon successful login
