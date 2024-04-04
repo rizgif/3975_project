@@ -43,29 +43,28 @@ header h1 {
   margin-bottom: 0; /* Remove margin for cleaner header spacing */
 }
 
-/* Navigation links styles - Leverage Bootstrap nav classes where possible */
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex; /* Align navigation items inline */
+/* Initially, you don't need to hide .dropdown-content with CSS because React takes care of its visibility */
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  background-color: #f8f9fa;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
-nav ul li {
-  margin-right: 20px;
-}
-
-nav ul li a {
-  color: #007bff; /* Use the primary color for links */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
   text-decoration: none;
-  font-size: 18px;
-  transition: color 0.2s ease-in-out; /* Smooth transition for hover effect */
+  display: block;
 }
 
-nav ul li a:hover {
-  text-decoration: underline;
-  color: #0056b3; /* Darker shade on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
 }
+
+
 
 /* Card styles - Adopt Bootstrap card classes where practical, with custom adjustments */
 .card {
@@ -132,6 +131,41 @@ nav ul li a:hover {
   color: #28a745; /* Bootstrap success color for success messages */
   margin-top: 10px; /* Space above the success message */
 }
+
+
+/* Event Card styles */
+.event-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  margin-bottom: 20px; /* Space between cards */
+  overflow: hidden; /* Keeps everything contained within the corners */
+}
+
+.event-image-container {
+  flex: 0 1 150px; /* Adjust the width of the image container here */
+  overflow: hidden; /* Ensures the image does not spill outside the container */
+}
+
+.event-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Ensures the image covers the area, may crop */
+}
+
+.event-details {
+  padding: 15px;
+  flex: 1; /* Takes up remaining space */
+}
+
+/* You might want to adjust the button styles for those within cards */
+.event-card .button, .event-card .btn {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
 
 
 

@@ -1,24 +1,24 @@
-//src/pages/home.tsx
-
-import React, { useState, useEffect } from 'react';
-import api from '../services/api';
+import React, { useState, useEffect, useMemo } from 'react';
+import api from '../services/api'; // Adjust this path as needed
+import '../App.css'; // Ensure the stylesheet is correctly imported
 
 interface Event {
-    id: number;
-    title: string;
-    host_id: number;
-    date: string;
-    location: string;
-    description: string;
-    image: string;
-    is_approved: boolean;
-  }
-  
+  id: number;
+  title: string;
+  host_id: number;
+  date: string;
+  location: string;
+  description: string;
+  image: string; // Make sure this path works correctly for your image URLs
+  is_approved: boolean;
+}
 
 const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [filterDate, setFilterDate] = useState('');
+  const [filterLocation, setFilterLocation] = useState('');
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -35,45 +35,13 @@ const Home: React.FC = () => {
     fetchEvents();
   }, []);
 
-  const handleCreateEvent = async () => {
-    try {
-      const newEvent = {
-        title: 'New Event',
-        host_id: 1, // Example host ID, replace with actual host ID
-        date: '2024-04-01', // Example date, replace with actual date
-        location: 'Example Location',
-        description: 'Example Description',
-        image: 'example.jpg',
-        is_approved: false // Example value for is_approved, replace with actual value
-      };
-  
-      const response = await api.post('/events', newEvent);
-      setEvents(prevEvents => [...prevEvents, response.data]);
-    } catch (error) {
-      console.error('Error creating event:', error);
-    }
-  };
-  
-
-  const handleUpdateEvent = async (eventId: number, updatedEvent: Partial<Event>) => {
-    try {
-      await api.put(`/events/${eventId}`, updatedEvent);
-      setEvents(prevEvents =>
-        prevEvents.map(event => (event.id === eventId ? { ...event, ...updatedEvent } : event))
-      );
-    } catch (error) {
-      console.error('Error updating event:', error);
-    }
-  };
-
-  const handleDeleteEvent = async (eventId: number) => {
-    try {
-      await api.delete(`/events/${eventId}`);
-      setEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
-    } catch (error) {
-      console.error('Error deleting event:', error);
-    }
-  };
+  // Filter the events based on the filter criteria
+  const filteredEvents = useMemo(() => {
+    return events.filter(event => {
+      return (filterDate ? event.date === filterDate : true) &&
+             (filterLocation ? event.location.toLowerCase().includes(filterLocation.toLowerCase()) : true);
+    });
+  }, [events, filterDate, filterLocation]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -85,17 +53,41 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h2>Events</h2>
-      <button onClick={handleCreateEvent}>Create Event</button>
-      <ul>
-        {events.map(event => (
-          <li key={event.id}>
-            <span>{event.title}</span>
-            <button onClick={() => handleUpdateEvent(event.id, { title: 'Updated Event' })}>Update</button>
-            <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      <h1>Welcome 👋</h1>
+      <div className="filter-container">
+        <input
+          type="date"
+          value={filterDate}
+          onChange={e => setFilterDate(e.target.value)}
+          placeholder="Filter by Date"
+        />
+        <input
+          type="text"
+          value={filterLocation}
+          onChange={e => setFilterLocation(e.target.value)}
+          placeholder="Filter by Location"
+        />
+        <button onClick={() => { setFilterDate(''); setFilterLocation(''); }}>Clear Filters</button>
+      </div>
+      
+      {filteredEvents.length > 0 ? (
+        filteredEvents.map(event => (
+          <div key={event.id} className="event-card">
+            <div className="event-image-container">
+              <img src={event.image} alt={event.title} className="event-image" />
+            </div>
+            <div className="event-details">
+              <h3>{event.title}</h3>
+              <p>{event.description}</p>
+              <p>Date: {event.date}</p>
+              <p>Location: {event.location}</p>
+              {/* Render any buttons or additional details here */}
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>No events found matching the criteria.</p>
+      )}
     </div>
   );
 };

@@ -1,35 +1,53 @@
-// src/components/Header.tsx
-
-import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link component for navigation
-import '../../App.css'; // Adjust the import path
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../../App.css';
 
 const Header: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
+  
+
   const handleSettingsChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOption = event.target.value;
-    // Implement logic to handle the selected option
     console.log('Selected option:', selectedOption);
   };
 
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log('Searching for:', searchQuery);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
+
   return (
-    <header>
+    <header className="header">
       <h1>EventureMap 🔎</h1>
-      {/* Navigation links */}
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/events">Events</Link></li>
-          {/* Add more navigation links as needed */}
-        </ul>
-      </nav>
-      {/* Settings dropdown */}
-      <div className="settings-dropdown">
-        <select onChange={handleSettingsChange}>
-          <option value="">Settings</option>
-          <option value="profile">Profile</option>
-          <option value="account">Account</option>
-          {/* Add more options as needed */}
-        </select>
+
+      <form onSubmit={handleSearchSubmit} className="search-form">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search events..."
+        />
+        <button type="submit">Search</button>
+      </form>
+
+        {/* Dropdown Menu */}
+        <div className="dropdown">
+        <button className="dropbtn" onClick={toggleDropdown}>Menu</button>
+        {isDropdownOpen && ( // Conditionally render dropdown content based on isDropdownOpen state
+          <div className="dropdown-content">
+            <Link to="/events">Your Events</Link>
+            <Link to="/profile">Profile</Link>
+            <Link to="/Logout">Logout</Link>
+
+          </div>
+        )}
       </div>
     </header>
   );

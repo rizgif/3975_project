@@ -7,7 +7,7 @@ import Profile from './pages/profile';
 import AuthPage from './pages/auth';
 import Register from './pages/register';
 import EventDetails from './pages/event_details'; // Import the EventDetails component
-
+import Logout from './components/Logout';
 
 
 const App: React.FC = () => {
@@ -24,6 +24,7 @@ const App: React.FC = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />}/>
             <Route path="/events/:eventId" element={<EventDetails />} /> {/* Route for the EventDetails page */}
+            <Route path='/logout' element={<Logout />} />
           </Routes>
         </main>
         <Footer />
