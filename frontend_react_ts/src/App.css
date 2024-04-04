@@ -1,6 +1,15 @@
-/* Button styles */
-.button {
-  background-color: #7f00ff;
+@import "~bootswatch/dist/lumen/bootstrap.min.css";
+
+/* General body styles */
+body {
+  background-color: #f8f9fa; /* Light background to match Lumen's aesthetic */
+  color: #212529; /* Dark text for contrast */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Lumen's default font */
+}
+
+/* Button styles - Enhancing with Lumen color scheme */
+.button, .btn {
+  background-color: #007bff; /* Lumen primary button color */
   color: white;
   padding: 10px 15px;
   text-align: center;
@@ -9,156 +18,122 @@
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 0.25rem; /* Rounded corners like Bootstrap buttons */
   border: none;
+  transition: background-color 0.2s ease-in-out; /* Smooth transition for hover effect */
 }
 
-.button:hover {
-  background-color: #333;
+.button:hover, .btn:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }
 
-/* Header styles */
+/* Header styles - Utilizing Bootstrap classes with slight customizations */
 header {
-  background-color: #7f00ff; /* Adjusted color */
-  color: #fff;
+  background-color: #f8f9fa; /* Light header to match the overall light theme of Lumen */
+  color: #212529;
   padding: 20px;
   text-align: center;
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px solid #dee2e6; /* Add a bottom border for definition */
 }
 
-/* H1 styles */
 header h1 {
   font-size: 24px;
-  margin-bottom: 10px;
+  margin-bottom: 0; /* Remove margin for cleaner header spacing */
 }
 
-/* Navigation links styles */
+/* Navigation links styles - Leverage Bootstrap nav classes where possible */
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex; /* Align navigation items inline */
 }
 
 nav ul li {
-  display: inline;
   margin-right: 20px;
 }
 
 nav ul li a {
-  color: #fff;
+  color: #007bff; /* Use the primary color for links */
   text-decoration: none;
   font-size: 18px;
+  transition: color 0.2s ease-in-out; /* Smooth transition for hover effect */
 }
 
 nav ul li a:hover {
   text-decoration: underline;
+  color: #0056b3; /* Darker shade on hover */
 }
 
-/* Settings dropdown styles */
-.settings-dropdown select {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.settings-dropdown select:focus {
-  outline: none;
-}
-
-/* Card styles */
+/* Card styles - Adopt Bootstrap card classes where practical, with custom adjustments */
 .card {
   background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  padding: 70px;
-  width: 300px;
-  margin: auto; /* Center the card horizontally */
-  margin-top: 50px; /* Add some space from the top */
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: auto; /* Adjust width to fit content */
+  margin: 20px auto; /* Center the card and add vertical spacing */
 }
+
+/* Additional styles for forms, messages, and footers can remain unchanged unless 
+   you want to specifically tailor them to better fit the Lumen theme or your app's design. */
 
 /* Form styles */
 .form-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px; /* Adjust as necessary */
-  
+  margin-top: 30px;
 }
 
 .form-container form {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Adjust the vertical spacing between form elements */
 }
 
-.form-container label {
-  margin-bottom: 5px; /* Adjust the bottom margin for labels */
-}
-
-.form-container input {
-  padding: 10px; /* Adjust the padding for input fields */
-
-
-}
-
-.form-container button {
-  padding: 12px 20px; /* Adjust the padding for the button */
-  margin-top: 10px; /* Adjust the top margin for the button */
-}
-
-/* Style each form group */
+/* Adjusting form group for better spacing and alignment */
 .form-group {
-  margin-bottom: 20px; /* Add space between each form group */
+  margin-bottom: 15px; /* Space between each form group */
 }
 
-/* Style the label to display as a block, which will make it sit on top of the input */
-label {
-  display: block;
-  margin-bottom: 5px; /* Add some space between the label and input */
+/* Ensuring labels are above inputs */
+.form-group label {
+  display: block; /* Makes the label take up the full width, forcing inputs below */
+  margin-bottom: 5px; /* Space between the label and the input below it */
+  font-weight: bold; /* Optional: Makes the label text bold for better readability */
 }
 
-/* Style the label to display as a block, which will make it sit on top of the input */
-label {
-  display: block;
-  margin-bottom: 5px; /* Add some space between the label and input */
+/* Style adjustments for inputs to fit better with the Lumen theme */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%; /* Ensures inputs take up the full width of their container */
+  padding: 8px 12px; /* Adjust padding for better text visibility and alignment */
+  border: 1px solid #ced4da; /* Lumen's input border color for consistency */
+  border-radius: 0.25rem; /* Rounded borders to match Bootstrap's style */
+  margin-bottom: 10px; /* Space below each input, can adjust if using inline error messages */
 }
 
-
-
-/* Style inputs */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 100%; /* Make inputs fill their container */
-  padding: 10px;
-  margin-bottom: 10px; /* Add some space below each input */
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* Adjustments for buttons to fit forms better */
+.form-container button {
+  width: auto; /* Adjust based on your design preference */
+  padding: 10px 15px; /* Bootstrap's default button padding */
+  margin-top: 10px; /* Space above the button */
 }
 
-/* Style the error and success messages */
-.error-message,
+/* Error and success message styles, consider using Bootstrap's alert classes */
+.error-message {
+  color: #dc3545; /* Bootstrap danger color for error messages */
+  margin-top: 10px; /* Space above the error message */
+}
+
 .success-message {
-  color: #d8000c; /* Red color for errors */
-  margin-bottom: 10px;
+  color: #28a745; /* Bootstrap success color for success messages */
+  margin-top: 10px; /* Space above the success message */
 }
 
-.success-message {
-  color: #4BB543; /* Green color for success */
-}
 
 
 
 /* Footer styles */
-footer {
-  background-color: #7f00ff; /* Adjusted color */
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
