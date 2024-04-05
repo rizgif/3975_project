@@ -29,9 +29,14 @@ const EventDetails: React.FC = () => {
         {event && (
           <div>
             <p>Title: {event.title}</p>
+            <p>Host ID: {event.host_id}</p>
             <p>Date: {event.date}</p>
             <p>Location: {event.location}</p>
             <p>Description: {event.description}</p>
+            <p>Image:</p>
+            <img src={event.image} alt="Event Image" />
+            <p>Created at: {new Date(event.created_at).toLocaleString()}</p>
+            <p>Updated at: {new Date(event.updated_at).toLocaleString()}</p>
             {/* Add more event details as needed */}
           </div>
         )}
