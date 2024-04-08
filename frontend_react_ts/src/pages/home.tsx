@@ -57,20 +57,25 @@ const Home: React.FC = () => {
     <div>
       <h1>Welcome 👋</h1>
       <div className="filter-container">
-        <input
-          type="text"
-          value={filterYear}
-          onChange={e => setFilterYear(e.target.value)}
-          placeholder="Filter by Year"
-        />
-        <input
-          type="text"
-          value={filterLocation}
-          onChange={e => setFilterLocation(e.target.value)}
-          placeholder="Filter by Location"
-        />
-        <button onClick={() => { setFilterYear(''); setFilterLocation(''); }}>Clear Filters</button>
-      </div>
+  <input
+    type="text"
+    value={filterYear}
+    onChange={e => setFilterYear(e.target.value)}
+    placeholder="Filter by Year"
+    style={{ marginRight: '10px' }} // Add margin-right to create space between inputs
+  />
+  <input
+    type="text"
+    value={filterLocation}
+    onChange={e => setFilterLocation(e.target.value)}
+    placeholder="Filter by Location"
+    style={{ marginRight: '10px' }} // Add margin-right to create space between inputs
+  />
+  <button className="btn btn-danger btn-sm" onClick={() => { setFilterYear(''); setFilterLocation(''); }}>Clear Filters</button>
+
+  
+</div>
+
 
       {filteredEvents.length > 0 ? (
         filteredEvents.map(event => (
