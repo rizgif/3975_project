@@ -39,7 +39,7 @@ const Home: React.FC = () => {
   const filteredEvents = useMemo(() => {
     return events.filter(event => {
       return (filterDate ? event.date === filterDate : true) &&
-             (filterLocation ? event.location.toLowerCase().includes(filterLocation.toLowerCase()) : true);
+        (filterLocation ? event.location.toLowerCase().includes(filterLocation.toLowerCase()) : true);
     });
   }, [events, filterDate, filterLocation]);
 
@@ -69,12 +69,12 @@ const Home: React.FC = () => {
         />
         <button onClick={() => { setFilterDate(''); setFilterLocation(''); }}>Clear Filters</button>
       </div>
-      
+
       {filteredEvents.length > 0 ? (
         filteredEvents.map(event => (
           <div key={event.id} className="card mb-3">
             <h3 className="card-header">{event.title}</h3>
-            <img src={event.image} className="card-img-top" alt={event.title} style={{ maxWidth: "100%", height: "auto" }} />
+            <img src={event.image} className="card-img-top" alt={event.title} style={{ maxWidth: "50%", height: "auto" }} />
             <div className="card-body">
               <p className="card-text">{event.description}</p>
             </div>
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
               <li className="list-group-item">Location: {event.location}</li>
             </ul>
             <div className="card-body">
-              <a href="#" className="card-link">More Info</a>
+              <a href={`/events/${event.id}`} className="card-link">More Info</a>
             </div>
             <div className="card-footer text-muted">
               2 days ago
