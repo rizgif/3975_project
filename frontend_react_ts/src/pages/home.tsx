@@ -17,8 +17,9 @@ const Home: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [filterDate, setFilterDate] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
+  const [filterYear, setFilterYear] = useState('');
+
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -38,10 +39,11 @@ const Home: React.FC = () => {
   // Filter the events based on the filter criteria
   const filteredEvents = useMemo(() => {
     return events.filter(event => {
-      return (filterDate ? event.date === filterDate : true) &&
-        (filterLocation ? event.location.toLowerCase().includes(filterLocation.toLowerCase()) : true);
+      const eventYear = new Date(event.date).getFullYear(); // Extract the year from the event date
+      return (filterYear ? eventYear === parseInt(filterYear) : true) && // Compare years if filterYear is present
+             (filterLocation ? event.location.toLowerCase().includes(filterLocation.toLowerCase()) : true);
     });
-  }, [events, filterDate, filterLocation]);
+  }, [events, filterYear, filterLocation]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -56,10 +58,10 @@ const Home: React.FC = () => {
       <h1>Welcome 👋</h1>
       <div className="filter-container">
         <input
-          type="date"
-          value={filterDate}
-          onChange={e => setFilterDate(e.target.value)}
-          placeholder="Filter by Date"
+          type="text"
+          value={filterYear}
+          onChange={e => setFilterYear(e.target.value)}
+          placeholder="Filter by Year"
         />
         <input
           type="text"
@@ -67,7 +69,7 @@ const Home: React.FC = () => {
           onChange={e => setFilterLocation(e.target.value)}
           placeholder="Filter by Location"
         />
-        <button onClick={() => { setFilterDate(''); setFilterLocation(''); }}>Clear Filters</button>
+        <button onClick={() => { setFilterYear(''); setFilterLocation(''); }}>Clear Filters</button>
       </div>
 
       {filteredEvents.length > 0 ? (
