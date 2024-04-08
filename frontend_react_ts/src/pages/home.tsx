@@ -35,13 +35,26 @@ const Home: React.FC = () => {
     };
 
     const fetchUserName = async () => {
+      const token = localStorage.getItem('token');
+    
+      if (!token) {
+        // Handle case where token is missing
+        return;
+      }
+    
       try {
-        const response = await api.get('/user'); // Assuming this endpoint returns user information
-        setUserName(response.data.name); // Assuming the user object has a 'name' field
+        const response = await api.get('/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserName(response.data.name);
       } catch (error) {
         console.error('Error fetching user data:', error);
+        // Handle authentication errors here
       }
     };
+    
 
     fetchEvents();
     fetchUserName(); // Call the function to fetch user name
