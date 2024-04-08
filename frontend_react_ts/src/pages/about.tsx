@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// About.tsx
-=======
 // about.tsx
->>>>>>> rz_signupevent
 
 import React from 'react';
 
@@ -27,8 +23,4 @@ const About: React.FC = () => {
   );
 };
 
-<<<<<<< HEAD
 export default About;
-=======
-export default About;
->>>>>>> rz_signupevent
