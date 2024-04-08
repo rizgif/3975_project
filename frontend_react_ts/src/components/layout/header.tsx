@@ -15,7 +15,8 @@ const Header: React.FC = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">EventureMap 🔍</a>
+      <a className="navbar-brand" href="#" style={{ fontFamily: 'fantasy' }}>EventureMap 🔍</a>
+
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -25,7 +26,7 @@ const Header: React.FC = () => {
               <Link className="nav-link active" to="/">Home <span className="visually-hidden">(current)</span></Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/features">Events</Link>
+              <Link className="nav-link" to="/events_list">Events</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/profile">Profile</Link>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import api from '../services/api'; // Adjust this path as needed
 import '../App.css'; // Ensure the stylesheet is correctly imported
+import { Link } from 'react-router-dom';
 
 interface Event {
   id: number;
@@ -77,7 +78,7 @@ const Home: React.FC = () => {
 </div>
 
 
-      {filteredEvents.length > 0 ? (
+{filteredEvents.length > 0 ? (
         filteredEvents.map(event => (
           <div key={event.id} className="card mb-3">
             <h3 className="card-header">{event.title}</h3>
@@ -90,8 +91,10 @@ const Home: React.FC = () => {
               <li className="list-group-item">Location: {event.location}</li>
             </ul>
             <div className="card-body">
-              <a href={`/events/${event.id}`} className="card-link">More Info</a>
-            </div>
+              <Link to={`/events/${event.id}`} className="btn btn-primary">
+                Get Event Details
+            </Link>
+            </div>  
             <div className="card-footer text-muted">
               2 days ago
             </div>

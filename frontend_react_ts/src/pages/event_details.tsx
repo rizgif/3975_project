@@ -40,10 +40,22 @@ const EventDetails: React.FC = () => {
             {/* Add more event details as needed */}
           </div>
         )}
-        <Link to="/">Back</Link> {/* Link back to the home page */}
+       
+
+       <div className="card-body">
+  <Link to={``} className="btn btn-success" style={{ marginRight: '10px' }}>
+    Sign Up
+  </Link>
+  <Link to="/" style={{ marginRight: '10px' }}>Back</Link>
+</div> 
+           
       </div>
+
+     
     </div>
   );
+
+  
 };
 
 export default EventDetails;
