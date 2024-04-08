@@ -1,0 +1,156 @@
+@import "~bootswatch/dist/lumen/bootstrap.min.css";
+
+
+
+/* General body styles */
+body {
+  background-color: #f8f9fa; /* Light background to match Lumen's aesthetic */
+  color: #212529; /* Dark text for contrast */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Lumen's default font */
+}
+
+
+/* Header styles - Utilizing Bootstrap classes with slight customizations */
+header {
+  background-color: #f8f9fa; /* Light header to match the overall light theme of Lumen */
+  color: #212529;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #dee2e6; /* Add a bottom border for definition */
+}
+
+header h1 {
+  font-size: 24px;
+  margin-bottom: 0; /* Remove margin for cleaner header spacing */
+}
+
+/* Initially, you don't need to hide .dropdown-content with CSS because React takes care of its visibility */
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  background-color: #f8f9fa;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+
+
+/* Card styles - Adopt Bootstrap card classes where practical, with custom adjustments */
+.card {
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: auto; /* Adjust width to fit content */
+  margin: 20px auto; /* Center the card and add vertical spacing */
+}
+
+/* Additional styles for forms, messages, and footers can remain unchanged unless 
+   you want to specifically tailor them to better fit the Lumen theme or your app's design. */
+
+/* Form styles */
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adjusting form group for better spacing and alignment */
+.form-group {
+  margin-bottom: 15px; /* Space between each form group */
+}
+
+/* Ensuring labels are above inputs */
+.form-group label {
+  display: block; /* Makes the label take up the full width, forcing inputs below */
+  margin-bottom: 5px; /* Space between the label and the input below it */
+  font-weight: bold; /* Optional: Makes the label text bold for better readability */
+}
+
+/* Style adjustments for inputs to fit better with the Lumen theme */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%; /* Ensures inputs take up the full width of their container */
+  padding: 8px 12px; /* Adjust padding for better text visibility and alignment */
+  border: 1px solid #ced4da; /* Lumen's input border color for consistency */
+  border-radius: 0.25rem; /* Rounded borders to match Bootstrap's style */
+  margin-bottom: 10px; /* Space below each input, can adjust if using inline error messages */
+}
+
+/* Adjustments for buttons to fit forms better */
+.form-container button {
+  width: auto; /* Adjust based on your design preference */
+  padding: 10px 15px; /* Bootstrap's default button padding */
+  margin-top: 10px; /* Space above the button */
+}
+
+/* Error and success message styles, consider using Bootstrap's alert classes */
+.error-message {
+  color: #dc3545; /* Bootstrap danger color for error messages */
+  margin-top: 10px; /* Space above the error message */
+}
+
+.success-message {
+  color: #28a745; /* Bootstrap success color for success messages */
+  margin-top: 10px; /* Space above the success message */
+}
+
+
+/* Event Card styles */
+.event-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  margin-bottom: 20px; /* Space between cards */
+  overflow: hidden; /* Keeps everything contained within the corners */
+}
+
+.event-image-container {
+  flex: 0 1 150px; /* Adjust the width of the image container here */
+  overflow: hidden; /* Ensures the image does not spill outside the container */
+}
+
+.event-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Ensures the image covers the area, may crop */
+}
+
+.event-details {
+  padding: 15px;
+  flex: 1; /* Takes up remaining space */
+}
+
+/* You might want to adjust the button styles for those within cards */
+.event-card .button, .event-card .btn {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+
+
+
+
+/* Footer styles */
