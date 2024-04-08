@@ -24,11 +24,9 @@ const Header: React.FC = () => {
             <li className="nav-item">
               <Link className="nav-link active" to="/">Home <span className="visually-hidden">(current)</span></Link>
             </li>
+           
             <li className="nav-item">
-              <Link className="nav-link" to="/features">Events</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/pricing">Profile</Link>
+              <Link className="nav-link" to="/profile">Profile</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/about">About</Link>
