@@ -7,25 +7,6 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Lumen's default font */
 }
 
-/* Button styles - Enhancing with Lumen color scheme */
-.button, .btn {
-  background-color: #007bff; /* Lumen primary button color */
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 0.25rem; /* Rounded corners like Bootstrap buttons */
-  border: none;
-  transition: background-color 0.2s ease-in-out; /* Smooth transition for hover effect */
-}
-
-.button:hover, .btn:hover {
-  background-color: #0056b3; /* Darker shade on hover */
-}
 
 /* Header styles - Utilizing Bootstrap classes with slight customizations */
 header {

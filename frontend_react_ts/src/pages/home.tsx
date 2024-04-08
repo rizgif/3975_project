@@ -72,16 +72,21 @@ const Home: React.FC = () => {
       
       {filteredEvents.length > 0 ? (
         filteredEvents.map(event => (
-          <div key={event.id} className="event-card">
-            <div className="event-image-container">
-              <img src={event.image} alt={event.title} className="event-image" />
+          <div key={event.id} className="card mb-3">
+            <h3 className="card-header">{event.title}</h3>
+            <img src={event.image} className="card-img-top" alt={event.title} style={{ maxWidth: "100%", height: "auto" }} />
+            <div className="card-body">
+              <p className="card-text">{event.description}</p>
             </div>
-            <div className="event-details">
-              <h3>{event.title}</h3>
-              <p>{event.description}</p>
-              <p>Date: {event.date}</p>
-              <p>Location: {event.location}</p>
-              {/* Render any buttons or additional details here */}
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">Date: {event.date}</li>
+              <li className="list-group-item">Location: {event.location}</li>
+            </ul>
+            <div className="card-body">
+              <a href="#" className="card-link">More Info</a>
+            </div>
+            <div className="card-footer text-muted">
+              2 days ago
             </div>
           </div>
         ))

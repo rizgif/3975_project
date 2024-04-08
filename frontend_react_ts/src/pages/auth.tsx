@@ -1,4 +1,3 @@
-// src/pages/auth.tsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -15,10 +14,8 @@ const AuthPage: React.FC = () => {
     try {
       const url = 'http://localhost:8000/api/login';
       const response = await axios.post(url, { 
-      
         email, 
         password,
-  
       });
       const { token } = response.data;
       localStorage.setItem('token', token);
@@ -29,24 +26,30 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-    <div className="form-container">
-      <div className="card">
-        <h2>Login</h2>
-        {error && <p>{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card border-primary mb-3">
+            <div className="card-header">Login</div>
+            <div className="card-body">
+              {error && <p className="text-danger">{error}</p>}
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">Email:</label>
+                  <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">Password:</label>
+                  <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </div>
+                <button className="btn btn-primary" type="submit">Login</button>
+              </form>
+              <p className="mt-3">
+                Don't have an account? <Link to="/register">Register here</Link>.
+              </p>
+            </div>
           </div>
-          <div>
-            <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </div>
-          <button className="button" type="submit">Login</button>
-        </form>
-        <p>
-          Don't have an account? <Link to="/register">Register here</Link>.
-        </p>
+        </div>
       </div>
     </div>
   );
