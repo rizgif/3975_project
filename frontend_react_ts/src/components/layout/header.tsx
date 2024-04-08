@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 
 const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
-  
 
-  const handleSettingsChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOption = event.target.value;
-    console.log('Selected option:', selectedOption);
-  };
+  // Mock user ID for demonstration purposes
+  // In a real application, you would retrieve this from your authentication context or state
+  const userId = '123'; // Example user ID
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    navigate(`/event_search?query=${encodeURIComponent(searchQuery)}`);
     console.log('Searching for:', searchQuery);
   };
 
@@ -37,15 +38,15 @@ const Header: React.FC = () => {
         <button type="submit">Search</button>
       </form>
 
-        {/* Dropdown Menu */}
-        <div className="dropdown">
+      {/* Dropdown Menu */}
+      <div className="dropdown">
         <button className="dropbtn" onClick={toggleDropdown}>Menu</button>
         {isDropdownOpen && ( // Conditionally render dropdown content based on isDropdownOpen state
           <div className="dropdown-content">
-            <Link to="/events">Your Events</Link>
+            <Link to={`/users/${userId}/events/attending`}>Attending Events</Link>
+            <Link to={`/users/${userId}/events/hosting`}>Hosting Events</Link>
             <Link to="/profile">Profile</Link>
             <Link to="/Logout">Logout</Link>
-
           </div>
         )}
       </div>

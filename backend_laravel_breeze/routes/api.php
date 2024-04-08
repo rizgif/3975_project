@@ -77,6 +77,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Remove an attendee from an event
     Route::delete('/events/{eventId}/attendees/{userId}', [EventController::class, 'removeAttendee']);
+
+    // Routes for fetching events the user is attending or hosting
+    Route::get('/events/attending', [EventController::class, 'eventsAttending']);
+    Route::get('/events/hosting', [EventController::class, 'eventsHosting']);
 });
 
 

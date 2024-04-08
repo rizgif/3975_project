@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
 
 class EventController extends Controller
 {
@@ -126,5 +127,20 @@ class EventController extends Controller
     }
 
     return response()->json(['message' => 'Attendee not found in this event'], 404);
+  }
+
+  // Get events that the user is attending
+  public function eventsUserAttending($userId)
+  {
+      $user = User::findOrFail($userId);
+      $eventsAttending = $user->eventsAttending; 
+      return response()->json($eventsAttending);
+  }
+
+  // Get events that the user has created
+  public function eventsUserHosting($userId)
+  {
+      $eventsHosting = Event::where('host_id', $userId)->get();
+      return response()->json($eventsHosting);
   }
 }
