@@ -79,7 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/events/{eventId}/attendees/{userId}', [EventController::class, 'removeAttendee']);
 });
 
-
+// To be removed
 // Event endpoints
 // Create an event
 Route::post('/events', [EventController::class, 'store']);
