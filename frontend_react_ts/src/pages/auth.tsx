@@ -19,7 +19,7 @@ const AuthPage: React.FC = () => {
       });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      navigate('/'); // Redirect to the home page upon successful login
+      navigate('/main'); // Redirect to the home page upon successful login
     } catch (error) {
       setError('Invalid email or password');
     }
@@ -42,7 +42,7 @@ const AuthPage: React.FC = () => {
                   <label htmlFor="password" className="form-label">Password:</label>
                   <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
-                <button className="btn btn-primary" type="submit">Login</button>
+                <button className="btn btn-success" type="submit">Login</button>
               </form>
               <p className="mt-3">
                 Don't have an account? <Link to="/register">Register here</Link>.

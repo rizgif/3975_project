@@ -19,7 +19,7 @@ const Header: React.FC = () => {
       <div className="container-fluid">
         
 
-        <Link to="/" className="btn btn-primary" style={{ fontSize: '30px'  }}>EventureMap 🔍</Link>
+      <Link to="/main" style={{ fontSize: '40px', fontFamily: 'Pacifico', textDecoration: 'none', color: 'white' }}> EventureMap 🔍</Link>
         {/* Center the search bar */}
         <div style={{ flexGrow: 1, marginLeft: '20%', display: 'flex', justifyContent: 'center' }}>
           <form className="d-flex" onSubmit={handleSearchSubmit}>
@@ -32,7 +32,10 @@ const Header: React.FC = () => {
         <div className="collapse navbar-collapse justify-content-end" id="navbarColor01">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">Home <span className="visually-hidden">(current)</span></Link>
+              <Link className="nav-link active" to="/main">Home <span className="visually-hidden">(current)</span></Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/">Events</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/events_list">Your Events</Link>
