@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../../App.css';
+import GuestHeader from './guestheader';
 
 const Header: React.FC = () => {
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  
+   // Check if the current location is '/login'
+   if (location.pathname === '/login' || location.pathname === '/register') {
+    // Render the GuestHeader component for the login page
+    return <GuestHeader />;
+  }
+
+
+
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -15,6 +26,7 @@ const Header: React.FC = () => {
   };
 
   return (
+   
     <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div className="container-fluid">
         
@@ -53,6 +65,7 @@ const Header: React.FC = () => {
         </div>
       </div>
     </nav>
+   
   );
 };
 
