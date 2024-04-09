@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import api from '../services/api'; // Import the API module
+import axios from 'axios';
 
 const EventDetails: React.FC = () => {
   const [event, setEvent] = useState<any>(null); // State variable to store event details
@@ -20,22 +21,34 @@ const EventDetails: React.FC = () => {
     fetchEventDetails(); // Call the fetchEventDetails function when the component mounts
   }, [eventId]); // Run the effect whenever the eventId changes
 
-// Function to handle sign-up action
-// const handleSignUp = async () => {
-//   try {
-//     // Retrieve the user ID from your authentication system
-//     const userId = getUserId(); // Replace getUserId() with the actual function to retrieve the user ID
-
-//     // Make a POST request to the API endpoint to sign up for the event
-//     await api.post(`/events/${eventId}/attendees`, { user_id: userId });
-
-//     // Redirect the user to the event list page after successful sign-up
-//     window.location.href = '/event_list';
-//   } catch (error) {
-//     setError('Failed to sign up for the event. Please try again.');
-//   }
-// };
-
+  const handleSignUp = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('You must be logged in to sign up for an event.');
+        return;
+      }
+  
+      const response = await axios.post(
+        `http://localhost:8000/events/${eventId}/attendees`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      // Assuming the backend sends back a success message or the updated event details
+      console.log('Sign up successful', response.data);
+      // You might want to update the event details in the state or show a success message
+    } catch (error) {
+      setError('Failed to sign up for the event. Please try again.');
+      console.error('Sign up error:', error);
+    }
+  };
+  
+  
 
 
   return (
@@ -57,23 +70,16 @@ const EventDetails: React.FC = () => {
             {/* Add more event details as needed */}
           </div>
         )}
-       
+        <div className="card-body">
+        <button onClick={handleSignUp} className="btn btn-success" style={{ marginRight: '10px' }}>
+          Sign Up
+        </button>
 
-       <div className="card-body">
-       <button className="btn btn-success" style={{ marginRight: '10px' }}>
-  Sign Up
-</button>
-
-  <Link to="/" className="btn btn-primary" style={{ marginRight: '10px' }}>Back</Link>
-</div> 
-           
+          <Link to="/" className="btn btn-primary" style={{ marginRight: '10px' }}>Back</Link>
+        </div> 
       </div>
-
-     
     </div>
   );
-
-  
 };
 
 export default EventDetails;
