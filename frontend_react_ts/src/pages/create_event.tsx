@@ -12,7 +12,7 @@ const CreateEvent: React.FC = () => {
     description: '',
     image: '',
     host_id: 0, // Initialize host_id to 0
-    approved: true
+    is_approved: true
   });
 
   // Fetch user ID function
@@ -47,9 +47,20 @@ const CreateEvent: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+
+    const submissionData = {
+      ...formData,
+      date: `${formData.date}:00`,
+    }
+
     try {
       console.log(formData)
-      await api.post('/events', formData);
+      await api.post('/events', submissionData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       // Redirect to the events page after successful event creation
       window.location.href = '/';
     } catch (error) {
@@ -68,7 +79,7 @@ const CreateEvent: React.FC = () => {
         </div>
         <div className="form-group">
           <label htmlFor="date">Date:</label>
-          <input type="date" id="date" name="date" value={formData.date} onChange={handleChange} required />
+          <input type="datetime-local" id="date" name="date" value={formData.date} onChange={handleChange} required />
         </div>
         <div className="form-group">
           <label htmlFor="location">Location:</label>
