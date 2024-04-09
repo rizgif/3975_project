@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Api\Auth\RegisteredUserController;
 use App\Http\Controllers\Api\Auth\AuthenticatedSessionController;
@@ -77,6 +78,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Remove an attendee from an event
     Route::delete('/events/{eventId}/attendees/{userId}', [EventController::class, 'removeAttendee']);
+
+    Route::get('/users/{userId}/events', [UserController::class, 'getUserEvents']);
 });
 
 // To be removed
