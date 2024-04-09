@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
   const [filterYear, setFilterYear] = useState('');
-
+  const [userName, setUserName] = useState<string>(''); // State variable to store user name
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -34,7 +34,30 @@ const Home: React.FC = () => {
       }
     };
 
+    const fetchUserName = async () => {
+      const token = localStorage.getItem('token');
+    
+      if (!token) {
+        // Handle case where token is missing
+        return;
+      }
+    
+      try {
+        const response = await api.get('/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserName(response.data.name);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        // Handle authentication errors here
+      }
+    };
+    
+
     fetchEvents();
+    fetchUserName(); // Call the function to fetch user name
   }, []);
 
   // Filter the events based on the filter criteria
@@ -56,29 +79,26 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>Welcome 👋</h1>
+      <h1>Welcome {userName ? `${userName} 👋` : '👋'}</h1>
       <div className="filter-container">
-  <input
-    type="text"
-    value={filterYear}
-    onChange={e => setFilterYear(e.target.value)}
-    placeholder="Filter by Year"
-    style={{ marginRight: '10px' }} // Add margin-right to create space between inputs
-  />
-  <input
-    type="text"
-    value={filterLocation}
-    onChange={e => setFilterLocation(e.target.value)}
-    placeholder="Filter by Location"
-    style={{ marginRight: '10px' }} // Add margin-right to create space between inputs
-  />
-  <button className="btn btn-danger btn-sm" onClick={() => { setFilterYear(''); setFilterLocation(''); }}>Clear Filters</button>
+        <input
+          type="text"
+          value={filterYear}
+          onChange={e => setFilterYear(e.target.value)}
+          placeholder="Filter by Year"
+          style={{ marginRight: '10px' }}
+        />
+        <input
+          type="text"
+          value={filterLocation}
+          onChange={e => setFilterLocation(e.target.value)}
+          placeholder="Filter by Location"
+          style={{ marginRight: '10px' }}
+        />
+        <button className="btn btn-danger btn-sm" onClick={() => { setFilterYear(''); setFilterLocation(''); }}>Clear Filters</button>
+      </div>
 
-  
-</div>
-
-
-{filteredEvents.length > 0 ? (
+      {filteredEvents.length > 0 ? (
         filteredEvents.map(event => (
           <div key={event.id} className="card mb-3">
             <h3 className="card-header">{event.title}</h3>
@@ -93,7 +113,7 @@ const Home: React.FC = () => {
             <div className="card-body">
               <Link to={`/events/${event.id}`} className="btn btn-primary">
                 Get Event Details
-            </Link>
+              </Link>
             </div>  
             <div className="card-footer text-muted">
               2 days ago

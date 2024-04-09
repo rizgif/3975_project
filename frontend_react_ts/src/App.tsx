@@ -9,7 +9,7 @@ import Register from './pages/register';
 import EventDetails from './pages/event_details'; // Import the EventDetails component
 import Logout from './components/Logout';
 import About from './pages/about';
-
+import CreateEvent from './pages/create_event'; // Import the CreateEvent component
 
 const App: React.FC = () => {
   const isLoggedIn = !!localStorage.getItem('token');
@@ -25,6 +25,7 @@ const App: React.FC = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />}/>
             <Route path="/events/:eventId" element={<EventDetails />} /> {/* Route for the EventDetails page */}
+            <Route path="/create_event" element={<CreateEvent />} /> {/* Route for the EventDetails page */}
             <Route path='/logout' element={<Logout />} />
             <Route path='/about' element={<About />} />
           </Routes>
