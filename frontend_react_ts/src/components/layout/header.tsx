@@ -4,24 +4,33 @@ import '../../App.css';
 
 const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
+
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Searching for:', searchQuery);
   };
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div className="container-fluid">
-      <a className="navbar-brand" href="#" >EventureMap 🔍</a>
+        
 
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarColor01">
-          <ul className="navbar-nav me-auto">
+        <Link to="/" className="btn btn-primary" style={{ fontSize: '30px'  }}>EventureMap 🔍</Link>
+        {/* Center the search bar */}
+        <div style={{ flexGrow: 1, marginLeft: '20%', display: 'flex', justifyContent: 'center' }}>
+          <form className="d-flex" onSubmit={handleSearchSubmit}>
+            <input className="form-control me-2" type="search" value={searchQuery} onChange={handleSearchChange} placeholder="Search" style={{ fontSize: '20px', height: '40px' }} />
+            <button className="btn btn-secondary" type="submit" style={{ fontSize: '16px' }}>Search</button>
+          </form>
+        </div>
+  
+        {/* Align the collapsible content to the right */}
+        <div className="collapse navbar-collapse justify-content-end" id="navbarColor01">
+          <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link active" to="/">Home <span className="visually-hidden">(current)</span></Link>
             </li>
@@ -37,12 +46,7 @@ const Header: React.FC = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/Logout">Logout</Link>
             </li>
-          
           </ul>
-          <form className="d-flex" onSubmit={handleSearchSubmit}>
-            <input className="form-control me-sm-2" type="search" value={searchQuery} onChange={handleSearchChange} placeholder="Search" />
-            <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>
