@@ -79,7 +79,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // Remove an attendee from an event
     Route::delete('/events/{eventId}/attendees/{userId}', [EventController::class, 'removeAttendee']);
 
-    Route::get('/users/{userId}/events', [UserController::class, 'getUserEvents']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+
+  Route::get('/users/{userId}/events', [UserController::class, 'getUserEvents']);
+
 });
 
 // To be removed

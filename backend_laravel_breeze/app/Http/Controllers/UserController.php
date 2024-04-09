@@ -7,7 +7,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function getUserEvent($userId)
+    public function getUserEvent(Request $request, $userId)
     {
         $user = User::with('attendingEvents')->find($userId);
 
