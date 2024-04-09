@@ -10,7 +10,7 @@ interface Event {
   date: string;
   location: string;
   description: string;
-  image: string; // Make sure this path works correctly for your image URLs
+  image: string;
   is_approved: boolean;
 }
 
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState('');
   const [filterLocation, setFilterLocation] = useState('');
   const [filterYear, setFilterYear] = useState('');
-  const [userName, setUserName] = useState<string>(''); // State variable to store user name
+  const [userName, setUserName] = useState<string>('');
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -33,15 +33,13 @@ const Home: React.FC = () => {
         setLoading(false);
       }
     };
-
+  
     const fetchUserName = async () => {
       const token = localStorage.getItem('token');
-    
       if (!token) {
-        // Handle case where token is missing
+        console.error('No token found');
         return;
       }
-    
       try {
         const response = await api.get('/user', {
           headers: {
@@ -51,78 +49,70 @@ const Home: React.FC = () => {
         setUserName(response.data.name);
       } catch (error) {
         console.error('Error fetching user data:', error);
-        // Handle authentication errors here
       }
     };
-    
-
+  
     fetchEvents();
-    fetchUserName(); // Call the function to fetch user name
+    fetchUserName(); // This line calls the fetchUserName function within useEffect
   }, []);
+  
 
-  // Filter the events based on the filter criteria
-  const filteredEvents = useMemo(() => {
-    return events.filter(event => {
-      const eventYear = new Date(event.date).getFullYear(); // Extract the year from the event date
-      return (filterYear ? eventYear === parseInt(filterYear) : true) && // Compare years if filterYear is present
-             (filterLocation ? event.location.toLowerCase().includes(filterLocation.toLowerCase()) : true);
-    });
-  }, [events, filterYear, filterLocation]);
+  const filteredEvents = useMemo(() => events.filter(event => {
+    const eventYear = new Date(event.date).getFullYear();
+    return (!filterYear || eventYear === parseInt(filterYear)) &&
+           (!filterLocation || event.location.toLowerCase().includes(filterLocation.toLowerCase()));
+  }), [events, filterYear, filterLocation]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>Welcome {userName ? `${userName} 👋` : '👋'}</h1>
-      <div className="filter-container">
+    <div className="container">
+ 
+      <div className="filter-container d-flex justify-content-center mb-4">
         <input
           type="text"
           value={filterYear}
           onChange={e => setFilterYear(e.target.value)}
           placeholder="Filter by Year"
-          style={{ marginRight: '10px' }}
+          className="mx-2" // Add horizontal margin
         />
         <input
           type="text"
           value={filterLocation}
           onChange={e => setFilterLocation(e.target.value)}
           placeholder="Filter by Location"
-          style={{ marginRight: '10px' }}
+          className="mx-2" // Add horizontal margin
         />
-        <button className="btn btn-danger btn-sm" onClick={() => { setFilterYear(''); setFilterLocation(''); }}>Clear Filters</button>
+        <button
+          className="btn btn-danger btn-sm mx-2" // Add horizontal margin to the button
+          onClick={() => { setFilterYear(''); setFilterLocation(''); }}
+        >
+          Clear Filters
+        </button>
       </div>
-
-      {filteredEvents.length > 0 ? (
-        filteredEvents.map(event => (
-          <div key={event.id} className="card mb-3">
-            <h3 className="card-header">{event.title}</h3>
-            <img src={event.image} className="card-img-top" alt={event.title} style={{ maxWidth: "50%", height: "auto" }} />
-            <div className="card-body">
-              <p className="card-text">{event.description}</p>
-            </div>
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item">Date: {event.date}</li>
-              <li className="list-group-item">Location: {event.location}</li>
-            </ul>
-            <div className="card-body">
-              <Link to={`/events/${event.id}`} className="btn btn-primary">
-                Get Event Details
-              </Link>
-            </div>  
-            <div className="card-footer text-muted">
-              2 days ago
+      <div className="row">
+        {filteredEvents.map(event => (
+          <div className="col-sm-12 col-md-6 col-lg-4 mb-4" key={event.id}>
+            <div className="card h-100 text-center">
+              <img src={event.image} className="card-img-top" alt={event.title} />
+              <div className="card-body">
+                <h5 className="card-title">{event.title}</h5>
+                <p className="card-text">{event.description}</p>
+              </div>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">Date: {event.date}</li>
+                <li className="list-group-item">Location: {event.location}</li>
+              </ul>
+              <div className="card-body">
+                <Link to={`/events/${event.id}`} className="btn btn-success">
+                  Get Event Details
+                </Link>
+              </div>
             </div>
           </div>
-        ))
-      ) : (
-        <p>No events found matching the criteria.</p>
-      )}
+        ))}
+      </div>
     </div>
   );
 };
