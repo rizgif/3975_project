@@ -56,7 +56,7 @@ const Main: React.FC = () => {
             {/* Feature cards */}
             <div className="col-md-4">
               <div className="card bg-light mb-3">
-                <div className="card-header bg-primary" style={{ fontSize: '2.0em' }}><FontAwesomeIcon icon={faSearch} /> Look for Events</div>
+                <div className="card-header bg-primary" style={{ fontSize: '2.0em' }}><FontAwesomeIcon icon={faSearch} /> Browse for Events</div>
                 <div className="card-body">
                   <p className="card-text">Explore a wide range of events happening near you or in your favorite locations.</p>
                 </div>
