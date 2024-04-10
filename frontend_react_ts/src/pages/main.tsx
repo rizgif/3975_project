@@ -44,10 +44,7 @@ const Main: React.FC = () => {
     <div>
     <img src="main.jpg" alt="Event Banner" style={{ width: '100%', height: '750px', display: 'block' }} />
 
-    <div style={{ textAlign: 'center' }}> 
-  <h1 style={{ padding: '10px 0',fontSize: '100px', fontFamily: 'Pacifico', textDecoration: 'none'}}>Welcome {userName ? `${userName} 👋` : '👋'}</h1>
 
-    </div>
 
         {/* Add a section for the features */}
         <section style={{ padding: '10px 0', textAlign: 'center', backgroundColor: '#f9f9f9' }}>
@@ -56,7 +53,7 @@ const Main: React.FC = () => {
             {/* Feature cards */}
             <div className="col-md-4">
               <div className="card bg-light mb-3">
-                <div className="card-header bg-primary" style={{ fontSize: '2.0em' }}><FontAwesomeIcon icon={faSearch} /> Browse for Events</div>
+                <div className="card-header bg-primary" style={{ fontSize: '2.0em' , color: 'white'}}><FontAwesomeIcon icon={faSearch} /> Browse for Events</div>
                 <div className="card-body">
                   <p className="card-text">Explore a wide range of events happening near you or in your favorite locations.</p>
                 </div>
@@ -64,7 +61,7 @@ const Main: React.FC = () => {
             </div>
             <div className="col-md-4">
               <div className="card bg-light mb-3">
-                <div className="card-header bg-primary" style={{ fontSize: '2.0em' }}><FontAwesomeIcon icon={faUserPlus} /> Sign Up for Events</div>
+                <div className="card-header bg-primary" style={{ fontSize: '2.0em', color: 'white' }}><FontAwesomeIcon icon={faUserPlus} /> Sign Up for Events</div>
                 <div className="card-body">
                   <p className="card-text">Reserve your spot and never miss out on the fun. Register for events with just a few clicks.</p>
                 </div>
@@ -72,7 +69,7 @@ const Main: React.FC = () => {
             </div>
             <div className="col-md-4">
               <div className="card bg-light mb-3">
-                <div className="card-header bg-primary" style={{ fontSize: '2.0em' }}><FontAwesomeIcon icon={faFilter} /> Filter Events</div>
+                <div className="card-header bg-primary" style={{ fontSize: '2.0em', color: 'white' }}><FontAwesomeIcon icon={faFilter} /> Filter Events</div>
                 <div className="card-body">
                   <p className="card-text">Narrow down your search by year or location to find the perfect event for you.</p>
                 </div>
