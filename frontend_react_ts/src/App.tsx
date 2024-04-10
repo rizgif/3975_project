@@ -27,15 +27,15 @@ const App: React.FC = () => {
             <Route path="/" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
             <Route path="/login" element={<AuthPage />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={isLoggedIn ? <Profile /> : <Navigate to="/login" />}/>
-            <Route path="/events/:eventId" element={isLoggedIn ? <EventDetails /> : <Navigate to="/login" />} /> {/* Route for the EventDetails page */}
-            <Route path="/create_event" element={isLoggedIn ? <CreateEvent /> : <Navigate to="/login" />} /> {/* Route for the EventDetails page */}
-            <Route path="/users/events" element={isLoggedIn ? <EventsAttending /> : <Navigate to="/login" />} />
-            <Route path="/users/hosting" element={isLoggedIn ? <EventsHosting /> : <Navigate to="/login" />} />
-            <Route path="/search" element={isLoggedIn ? <EventSearch /> : <Navigate to="/login" />} />
+            <Route path="/profile" element={<Profile />}/>
+            <Route path="/events/:eventId" element={<EventDetails />} /> {/* Route for the EventDetails page */}
+            <Route path="/create_event" element={<CreateEvent />} /> {/* Route for the EventDetails page */}
+            <Route path="/users/events" element={<EventsAttending />} />
+            <Route path="/users/hosting" element={<EventsHosting />} />
+            <Route path="/search" element={<EventSearch />} />
             <Route path='/logout' element={<Logout />} />
-            <Route path='/about' element={isLoggedIn ? <About /> : <Navigate to="/login" />} />
-            <Route path='/main' element={isLoggedIn ? <Main /> : <Navigate to="/login" />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/main' element={<Main />} />
 
           </Routes>
         </main>

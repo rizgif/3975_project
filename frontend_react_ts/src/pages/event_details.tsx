@@ -98,8 +98,8 @@ const EventDetails: React.FC = () => {
             <p>Description: {event.description}</p>
             <p>Image:</p>
             <img src={event.image} alt="Event Image" />
-            <p>Created at: {new Date(event.created_at).toLocaleString()}</p>
-            <p>Updated at: {new Date(event.updated_at).toLocaleString()}</p>
+            <p>Submitted at: {new Date(event.created_at).toLocaleString()}</p>
+            <p>Approved at: {new Date(event.updated_at).toLocaleString()}</p>
             {/* Add more event details as needed */}
           </div>
         )}
