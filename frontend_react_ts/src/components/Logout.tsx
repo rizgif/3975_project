@@ -16,7 +16,7 @@ const Logout: React.FC = () => {
       // Redirect the user to the login page or home page after logout
       setTimeout(() => {
         navigate('/login'); // Adjust the path as needed for your application
-      }, 2000); // Adjust the delay for the notification as needed
+      }, 3000); // Adjust the delay for the notification as needed
     };
 
     logout();
@@ -27,7 +27,7 @@ const Logout: React.FC = () => {
   // Optionally, display a message or loader while logging out
   return (
     <div>
-      {success && <p>Logout successful!</p>} {/* Success notification */}
+      {success && <p style={{ color: 'red' }}>Logout successful!</p>} {/* Success notification with red color */}
       Logging out...
     </div>
   );
