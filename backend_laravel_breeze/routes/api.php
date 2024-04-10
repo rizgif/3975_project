@@ -90,31 +90,31 @@ Route::middleware('auth:sanctum')->group(function () {
 // To be removed
 // Event endpoints
 // Create an event
-Route::post('/events', [EventController::class, 'store']);
+// Route::post('/events', [EventController::class, 'store']);
 
-// Get all events -> works
-Route::get('/events', [EventController::class, 'index']);
+// // Get all events -> works
+// Route::get('/events', [EventController::class, 'index']);
 
-// Get a single event -> works
-Route::get('/events/{id}', [EventController::class, 'show']);
+// // Get a single event -> works
+// Route::get('/events/{id}', [EventController::class, 'show']);
 
-// Update an event
-Route::put('/events/{id}', [EventController::class, 'update']);
-Route::patch('/events/{id}', [EventController::class, 'update']);
+// // Update an event
+// Route::put('/events/{id}', [EventController::class, 'update']);
+// Route::patch('/events/{id}', [EventController::class, 'update']);
 
-// Delete an event
-Route::delete('/events/{id}', [EventController::class, 'destroy']);
+// // Delete an event
+// Route::delete('/events/{id}', [EventController::class, 'destroy']);
 
-// Attendee endpoints
-// Add an attendee to an event
-Route::post('/events/{eventId}/attendees', [EventController::class, 'addAttendee']);
+// // Attendee endpoints
+// // Add an attendee to an event
+// Route::post('/events/{eventId}/attendees', [EventController::class, 'addAttendee']);
 
-// Get all attendees for an event -> works
-Route::get('/events/{eventId}/attendees', [EventController::class, 'getAttendees']);
+// // Get all attendees for an event -> works
+// Route::get('/events/{eventId}/attendees', [EventController::class, 'getAttendees']);
 
-// Remove an attendee from an event
-Route::delete('/events/{eventId}/attendees/{userId}', [EventController::class, 'removeAttendee']);
+// // Remove an attendee from an event
+// Route::delete('/events/{eventId}/attendees/{userId}', [EventController::class, 'removeAttendee']);
 
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+// Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+// Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
