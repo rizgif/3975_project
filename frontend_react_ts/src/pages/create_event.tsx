@@ -12,7 +12,7 @@ const CreateEvent: React.FC = () => {
     description: '',
     image: '',
     host_id: 0, // Initialize host_id to 0
-    is_approved: true
+    is_approved: false
   });
 
   // Fetch user ID function
