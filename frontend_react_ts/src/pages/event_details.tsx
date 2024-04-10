@@ -76,7 +76,7 @@ const EventDetails: React.FC = () => {
 
       console.log('Sign up successful', response.data);
       // Handle successful sign up (e.g., show a success message, refresh event details to show the user as an attendee)
-      navigate('/');
+      navigate('/users/events');
     } catch (error) {
       setError('Failed to sign up for the event. Please try again.');
       console.error('Sign up error:', error);

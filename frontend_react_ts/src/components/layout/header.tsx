@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import GuestHeader from './guestheader';
 
 const Header: React.FC = () => {
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   
    // Check if the current location is '/login'
    if (location.pathname === '/login' || location.pathname === '/register') {
@@ -14,28 +14,34 @@ const Header: React.FC = () => {
     return <GuestHeader />;
   }
 
-
-
-
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate(`/event_search?query=${encodeURIComponent(searchQuery)}`);
-    console.log('Searching for:', searchQuery);
+    try {
+      const response = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        setSearchResults(data);
+      } else {
+        // Handle non-JSON response (e.g., display an error message)
+        console.error('Response is not JSON:', await response.text());
+      }
+    } catch (error) {
+      console.error('There was a problem with your fetch operation:', error);
+    }
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
 
-  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
-
   return (
-   
     <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" style={{ display: 'flex', justifyContent: 'space-between' }}>
       <div className="container-fluid">
-        
-
-      <Link to="/main" style={{ fontSize: '40px', fontFamily: 'Pacifico', textDecoration: 'none', color: 'white' }}> EventureMap 🔍</Link>
+        <Link to="/main" style={{ fontSize: '40px', fontFamily: 'Pacifico', textDecoration: 'none', color: 'white' }}> EventureMap 🔍</Link>
         {/* Center the search bar */}
         <div style={{ flexGrow: 1, marginLeft: '20%', display: 'flex', justifyContent: 'center' }}>
           <form className="d-flex" onSubmit={handleSearchSubmit}>
