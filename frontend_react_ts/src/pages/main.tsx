@@ -45,40 +45,47 @@ const Main: React.FC = () => {
     <img src="main.jpg" alt="Event Banner" style={{ width: '100%', height: '750px', display: 'block' }} />
 
     <div style={{ textAlign: 'center' }}> 
-  <h1 style={{ fontSize: '100px', fontFamily: 'Pacifico', textDecoration: 'none'}}>Welcome {userName ? `${userName} 👋` : '👋'}</h1>
+  <h1 style={{ padding: '10px 0',fontSize: '100px', fontFamily: 'Pacifico', textDecoration: 'none'}}>Welcome {userName ? `${userName} 👋` : '👋'}</h1>
 
-</div>
+    </div>
 
-      <div className="row">
-        <div className="col-md-4">
-          <div className="card bg-light mb-3">
-            <div className="card-header bg-primary"><FontAwesomeIcon icon={faSearch} /> Look for Events</div>
-            <div className="card-body">
-              <p className="card-text">Explore a wide range of events happening near you or in your favorite locations.</p>
+        {/* Add a section for the features */}
+        <section style={{ padding: '10px 0', textAlign: 'center', backgroundColor: '#f9f9f9' }}>
+        <div className="container">
+          <div className="row">
+            {/* Feature cards */}
+            <div className="col-md-4">
+              <div className="card bg-light mb-3">
+                <div className="card-header bg-primary"><FontAwesomeIcon icon={faSearch} /> Look for Events</div>
+                <div className="card-body">
+                  <p className="card-text">Explore a wide range of events happening near you or in your favorite locations.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card bg-light mb-3">
+                <div className="card-header bg-primary"><FontAwesomeIcon icon={faUserPlus} /> Sign Up for Events</div>
+                <div className="card-body">
+                  <p className="card-text">Reserve your spot and never miss out on the fun. Register for events with just a few clicks.</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="card bg-light mb-3">
+                <div className="card-header bg-primary"><FontAwesomeIcon icon={faFilter} /> Filter Events</div>
+                <div className="card-body">
+                  <p className="card-text">Narrow down your search by year or location to find the perfect event for you.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="col-md-4">
-          <div className="card bg-light mb-3">
-            <div className="card-header bg-primary"><FontAwesomeIcon icon={faUserPlus} /> Sign Up for Events</div>
-            <div className="card-body">
-              <p className="card-text">Reserve your spot and never miss out on the fun. Register for events with just a few clicks.</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="card bg-light mb-3">
-            <div className="card-header bg-primary"><FontAwesomeIcon icon={faFilter} /> Filter Events</div>
-            <div className="card-body">
-              <p className="card-text">Narrow down your search by year or location to find the perfect event for you.</p>
-            </div>
-          </div>
-        </div>
+      </section>
+
+      {/* Add a call-to-action button */}
+      <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+        <Link to="/" className="btn btn-success btn-lg">Start Exploring Now!</Link>
       </div>
-      <p>
-        Ready to dive in? <Link to="/" className="btn btn-success">Start exploring now!</Link>
-
-      </p>
     </div>
   );
 };

@@ -110,7 +110,8 @@ const Profile: React.FC = () => {
                   <label htmlFor="passwordConfirmation" className="form-label">Confirm Password:</label>
                   <input type="password" className="form-control" id="passwordConfirmation" value={passwordConfirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} />
                 </div>
-                <button className="btn btn-success" type="submit">Update Profile</button>
+                <button className="btn btn-success" type="submit" style={{ marginRight: '10px' }}>Update Profile</button>
+                <Link to="/" className="btn btn-primary" style={{ marginRight: '10px' }}>Back</Link>
               </form>
             </div>
           </div>

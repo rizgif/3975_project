@@ -90,6 +90,7 @@ const Home: React.FC = () => {
         >
           Clear Filters
         </button>
+        <Link to="/create_event" className="btn btn-success">Create Event</Link>
       </div>
       <div className="row">
         {filteredEvents.map(event => (

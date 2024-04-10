@@ -70,33 +70,44 @@ const CreateEvent: React.FC = () => {
   };
 
   return (
-    <div className="create-event-container">
-      <h2>Create Event</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title:</label>
-          <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} required />
+     <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card border-primary mb-3">
+            <div className="card-header">Create Event</div>
+            <div className="card-body">
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="title" className="form-label">Title:</label>
+                  <input type="text" className="form-control" id="title" name="title" value={formData.title} onChange={handleChange} required />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="date" className="form-label">Date:</label>
+                  <input type="datetime-local" className="form-control" id="date" name="date" value={formData.date} onChange={handleChange} required />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="location" className="form-label">Location:</label>
+                  <input type="text" className="form-control" id="location" name="location" value={formData.location} onChange={handleChange} required />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="description" className="form-label">Description:</label>
+                  <textarea className="form-control" id="description" name="description" value={formData.description} onChange={handleChange} required />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="image" className="form-label">Image:</label>
+                  <input type="text" className="form-control" id="image" name="image" value={formData.image} onChange={handleChange} required />
+                </div>
+                <button type="submit" className="btn btn-success" style={{ marginRight: '10px' }}>Create Event</button>
+                <Link to="/" className="btn btn-primary" style={{ marginRight: '10px' }}>Back</Link>
+              </form>
+            </div>
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="date">Date:</label>
-          <input type="datetime-local" id="date" name="date" value={formData.date} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="location">Location:</label>
-          <input type="text" id="location" name="location" value={formData.location} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Description:</label>
-          <textarea id="description" name="description" value={formData.description} onChange={handleChange} required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="image">Image:</label>
-          <input type="text" id="image" name="image" value={formData.image} onChange={handleChange} required />
-        </div>
-        <button type="submit" className="btn btn-primary">Create Event</button>
-      </form>
+      </div>
     </div>
   );
 };
 
 export default CreateEvent;
+
+
