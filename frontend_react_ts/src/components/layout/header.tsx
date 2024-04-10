@@ -54,8 +54,11 @@ const Header: React.FC = () => {
               <Link className="nav-link" to="/">Events</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/events_list">Your Events</Link>
+              <Link className="nav-link" to={`/users/events`}>Your Events</Link>
             </li>
+            {/*<li className="nav-item">
+              <Link className="nav-link" to={`/users/hosting`}>Hosting</Link>
+            </li>*/}
             <li className="nav-item">
               <Link className="nav-link" to="/profile">Profile</Link>
             </li>
