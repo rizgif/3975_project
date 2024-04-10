@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -16,7 +19,7 @@ jobs:
     defaults:
       run:
         # Set the default working directory to the repository root (New)
-        # Note further down: zip ../release.zip 
+        # Note further down: zip ../release.zip
         working-directory: ./backend_laravel_breeze
 
     steps:
@@ -25,20 +28,30 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: "8.2"
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Check if composer.json exists
         id: check_files
         uses: andstor/file-existence-action@v1
         with:
-          files: 'backend_laravel_breeze/composer.json'
+          files: "backend_laravel_breeze/composer.json"
 
-      - name: Run composer install if composer.json exists
-        if: steps.check_files.outputs.files_exists == 'true'
-        run: |
-          pwd
-          composer validate --no-check-publish && composer install --prefer-dist --no-progress
-        
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
 
       - name: give full permission to storage folder (NEW)
         run: |
@@ -48,13 +61,13 @@ jobs:
           ls storage
           echo "++++ Give full permission to storage folder"
           chmod -R 777 storage
-          
+
       - name: migrate database (NEW)
         run: |
           pwd
           ls
           php artisan migrate --force --seed
-  
+
       - name: give full permission to database folder (NEW)
         run: |
           echo "++++ What is the current directory?"
@@ -76,36 +89,39 @@ jobs:
           name: php-app
           path: release.zip
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   environment:
-  #     name: 'Production'
-  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-  #   permissions:
-  #     id-token: write #This is required for requesting the JWT
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: "Production"
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write
 
-  #   steps:
-  #     - name: Download artifact from build job
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: php-app
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: php-app
 
-  #     - name: Unzip artifact for deployment
-  #       run: unzip release.zip
-      
-  #     - name: Login to Azure
-  #       uses: azure/login@v1
-  #       with:
-  #         client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4ADEB4A122AB447F9A6A3C5AF71D43F2 }}
-  #         tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E74191E4D2364191B14D8F5EDBD791E6 }}
-  #         subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CA6D6CAFE77C43369FFDA3E88A7346E1 }}
+      - name: Unzip artifact for deployment
+        run: unzip release.zip
 
-  #     - name: 'Deploy to Azure Web App'
-  #       uses: azure/webapps-deploy@v2
-  #       id: deploy-to-webapp
-  #       with:
-  #         app-name: 'comp3975prj'
-  #         slot-name: 'Production'
-  #         package: .
-          
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: "Run Azure CLI commands"
+        run: |
+          az account show
+          az group list
+          pwd
+
+      - name: "Deploy to Azure Web App"
+        uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
+        with:
+          app-name: "eventmanagerserver"
+          slot-name: "Production"
+          package: .
