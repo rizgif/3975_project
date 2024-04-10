@@ -7,10 +7,10 @@ const EventDetails: React.FC = () => {
   const [event, setEvent] = useState<any>(null);
   const [error, setError] = useState<string>('');
   const [userId, setUserId] = useState<string | null>(null); // Store user ID
+  const [isSignedUp, setIsSignedUp] = useState<boolean>(false); 
   const { eventId } = useParams();
 
   const navigate = useNavigate();
-
 
   useEffect(() => {
     // Fetch event details
@@ -24,8 +24,30 @@ const EventDetails: React.FC = () => {
     };
 
     fetchEventDetails();
-  }, [eventId]);
+  }, [eventId, userId]);
 
+  useEffect(() => {
+    // Check if the user is signed up for the event
+    const fetchAttendeeInfo = async () => {
+      try {
+        // Fetch attendee information
+        const response = await axios.get(`http://localhost:8000/api/events/${eventId}/attendees`);
+        const attendees = response.data;
+        // Check if the user ID is among the attendees
+        const isUserSignedUp = attendees.some((attendee: any) => attendee.pivot.user_id === userId);
+        setIsSignedUp(isUserSignedUp);
+        console.log('After set up isSignedUp', isSignedUp);
+      } catch (error) {
+        console.error('Error fetching attendee information:', error);
+      }
+    };
+
+    if (event && userId) {
+      fetchAttendeeInfo();
+    }
+  }, [event, userId, eventId]);
+
+  
   useEffect(() => {
     // Fetch user ID function
     const fetchUserID = async () => {
@@ -104,10 +126,11 @@ const EventDetails: React.FC = () => {
           </div>
         )}
         <div className="card-body">
-        <button onClick={handleSignUp} className="btn btn-success" style={{ marginRight: '10px' }}>
-          Sign Up
-        </button>
-
+        {!isSignedUp && (
+            <button onClick={handleSignUp} className="btn btn-success" style={{ marginRight: '10px' }}>
+              Sign Up
+            </button>
+          )}
           <Link to="/" className="btn btn-primary" style={{ marginRight: '10px' }}>Back</Link>
         </div> 
       </div>
