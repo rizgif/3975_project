@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css'; // Adjust the import path
+import '../App.css'; // Adjust the import path if necessary
 
 const AuthPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false); // State for success notification
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,7 +20,11 @@ const AuthPage: React.FC = () => {
       });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      navigate('/main'); // Redirect to the home page upon successful login
+      setSuccess(true); // Set success state to true
+      setTimeout(() => {
+        setSuccess(false); // Reset success state after a delay
+        navigate('/main'); // Redirect to the home page upon successful login
+      }, 1000); // Adjust the delay as necessary
     } catch (error) {
       setError('Invalid email or password');
     }
@@ -33,6 +38,7 @@ const AuthPage: React.FC = () => {
             <div className="card-header">Login</div>
             <div className="card-body">
               {error && <p className="text-danger">{error}</p>}
+              {success && <p className="text-success">Login successful! Redirecting...</p>} {/* Success notification */}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">Email:</label>

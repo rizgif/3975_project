@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../../App.css';
 import GuestHeader from './guestheader';
-import api from '../../services/api'; // Adjust this path as needed
+
 
 
 const Header: React.FC = () => {
@@ -11,34 +11,11 @@ const Header: React.FC = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [userName, setUserName] = useState<string>(''); // State variable to store user name
 
-  useEffect(() => {
-        
-    
-    const fetchUserName = async () => {
-      const token = localStorage.getItem('token');
-    
-      if (!token) {
-        // Handle case where token is missing
-        return;
-      }
-    
-      try {
-        const response = await api.get('/user', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUserName(response.data.name);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        // Handle authentication errors here
-      }
-    };
+  
     
 
  
-    fetchUserName(); // Call the function to fetch user name
-  }, []);
+
 
   
    // Check if the current location is '/login'
@@ -76,17 +53,7 @@ const Header: React.FC = () => {
       <div className="container-fluid">
         <Link to="/main" style={{ fontSize: '40px', fontFamily: 'Pacifico', textDecoration: 'none', color: 'white' }}> EventureMap 🔍</Link>
        
-   {/* Spacer to push the middle and right content to their positions */}
-   <div style={{ flex: 1 }}></div> 
-    
-    {/* Centered Welcome message */}
-    <h1 style={{ flex: 0, fontSize: '40px', color: 'black', textAlign: 'center', margin: '0 auto' }}>
-      Welcome {userName ? `${userName} 👋` : '👋'}
-    </h1>
-    
-    {/* Another spacer to ensure the Welcome message stays centered */}
-    <div style={{ flex: 1 }}></div> 
-
+   
 
         {/* Align the collapsible content to the right */}
         <div className="collapse navbar-collapse justify-content-end" id="navbarColor01">

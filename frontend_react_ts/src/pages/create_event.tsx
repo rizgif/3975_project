@@ -15,6 +15,8 @@ const CreateEvent: React.FC = () => {
     is_approved: false
   });
 
+  const [success, setSuccess] = useState(false); // State for success notification
+
   // Fetch user ID function
   const fetchUserID = async () => {
     const token = localStorage.getItem('token');
@@ -61,8 +63,10 @@ const CreateEvent: React.FC = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // Redirect to the events page after successful event creation
-      window.location.href = '/';
+      setSuccess(true); // Set success state to true
+      setTimeout(() => {
+        setSuccess(false); // Reset success state after a delay
+      }, 1000); // Adjust the delay as necessary
     } catch (error) {
       console.error('Error creating event:', error);
       // Handle error
@@ -76,6 +80,7 @@ const CreateEvent: React.FC = () => {
           <div className="card border-primary mb-3">
             <div className="card-header">Create Event</div>
             <div className="card-body">
+              {success && <p className="text-success">Event created successfully. It is pending approval by an admin.</p>} {/* Success notification */}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="title" className="form-label">Title:</label>
@@ -109,5 +114,3 @@ const CreateEvent: React.FC = () => {
 };
 
 export default CreateEvent;
-
-

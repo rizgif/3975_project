@@ -9,6 +9,7 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false); // State for success notification
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,7 +26,11 @@ const Register: React.FC = () => {
       
       localStorage.setItem('token', token);
       
-      navigate('/main'); // Adjust the redirect route as necessary
+      setSuccess(true); // Set success state to true
+      setTimeout(() => {
+        setSuccess(false); // Reset success state after a delay
+        navigate('/login'); // Adjust the redirect route as necessary
+      }, 1000); // Adjust the delay as necessary
     } catch (error) {
       setError('Registration failed. Please try again.');
     }
@@ -39,6 +44,7 @@ const Register: React.FC = () => {
             <div className="card-header">Register</div>
             <div className="card-body">
               {error && <p className="text-danger">{error}</p>}
+              {success && <p className="text-success">Registration successful! Redirecting...</p>} {/* Success notification */}
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">Name:</label>
