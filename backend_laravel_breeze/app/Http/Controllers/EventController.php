@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\User;
 
 class EventController extends Controller
 {
@@ -127,4 +128,5 @@ class EventController extends Controller
 
     return response()->json(['message' => 'Attendee not found in this event'], 404);
   }
+
 }

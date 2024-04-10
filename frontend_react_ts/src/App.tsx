@@ -11,6 +11,9 @@ import Logout from './components/Logout';
 import About from './pages/about';
 import CreateEvent from './pages/create_event'; // Import the CreateEvent component
 import Main from './pages/main';
+import EventsAttending from './pages/event_attending'; // Import the EventsAttending component
+import EventsHosting from './pages/event_hosting'; // Import the EventsHosting component
+import EventSearch from './pages/events_search';
 
 const App: React.FC = () => {
   const isLoggedIn = !!localStorage.getItem('token');
@@ -27,6 +30,9 @@ const App: React.FC = () => {
             <Route path="/profile" element={<Profile />}/>
             <Route path="/events/:eventId" element={<EventDetails />} /> {/* Route for the EventDetails page */}
             <Route path="/create_event" element={<CreateEvent />} /> {/* Route for the EventDetails page */}
+            <Route path="/users/events" element={<EventsAttending />} />
+            <Route path="/users/hosting" element={<EventsHosting />} />
+            <Route path="/search" element={<EventSearch />} />
             <Route path='/logout' element={<Logout />} />
             <Route path='/about' element={<About />} />
             <Route path='/main' element={<Main />} />

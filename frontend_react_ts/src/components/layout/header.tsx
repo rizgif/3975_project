@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import GuestHeader from './guestheader';
 
@@ -18,12 +19,15 @@ const Header: React.FC = () => {
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    navigate(`/event_search?query=${encodeURIComponent(searchQuery)}`);
     console.log('Searching for:', searchQuery);
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
 
   return (
    
